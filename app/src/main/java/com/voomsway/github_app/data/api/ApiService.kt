@@ -1,6 +1,7 @@
 package com.voomsway.github_app.data.api
 
-import com.voomsway.github_app.data.model.GithubUser
+import com.voomsway.github_app.data.model.GithubUsers
+import com.voomsway.github_app.data.model.Items
 import io.reactivex.Flowable
 
 /**
@@ -8,5 +9,5 @@ import io.reactivex.Flowable
  */
 interface ApiService {
 
-    fun getGithubUsers(): Flowable<List<GithubUser>>
+    fun getGithubUsers(): Flowable<GithubUsers>
 }

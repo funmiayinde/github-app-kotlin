@@ -1,7 +1,8 @@
 package com.voomsway.github_app.data.api
 
 import com.rx2androidnetworking.Rx2AndroidNetworking
-import com.voomsway.github_app.data.model.GithubUser
+import com.voomsway.github_app.data.model.GithubUsers
+import com.voomsway.github_app.data.model.Items
 import io.reactivex.Flowable
 
 /**
@@ -9,9 +10,9 @@ import io.reactivex.Flowable
  */
 class ApiServiceImpl: ApiService {
 
-    override fun getGithubUsers(): Flowable<List<GithubUser>> {
+    override fun getGithubUsers(): Flowable<GithubUsers> {
         return Rx2AndroidNetworking.get("https://api.github.com/search/repositories?q=android+language:java+language:kotlin&sort=stars&order=desc")
             .build()
-            .getObjectListFlowable(GithubUser::class.java)
+            .getObjectFlowable(GithubUsers::class.java)
     }
 }

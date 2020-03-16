@@ -6,22 +6,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.voomsway.github_app.R
-import com.voomsway.github_app.data.model.GithubUser
+import com.voomsway.github_app.data.model.Items
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 /**
  * Created by funmi ayinde on 16/03/2020.
  */
-class MainAdapter(private val users: ArrayList<GithubUser>) :
+class MainAdapter(private val users: ArrayList<Items>) :
     RecyclerView.Adapter<MainAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(user: GithubUser) {
-            itemView.authorName.text = user.name;
-            itemView.repoName.text = user.full_name;
-            itemView.starCount.text = user.stargazers_count.toString()
+        fun bind(item: Items) {
+            itemView.authorName.text = item.name;
+            itemView.repoName.text = item.full_name;
+            itemView.starCount.text = item.stargazers_count.toString()
             Glide.with(itemView.imageViewAvatar.context)
-                .load(user.avatar_url)
+                .load(item.avatar_url)
                 .into(itemView.imageViewAvatar)
 
         }
@@ -38,7 +38,7 @@ class MainAdapter(private val users: ArrayList<GithubUser>) :
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
         holder.bind(users[position])
 
-    fun addData(list: List<GithubUser>) {
+    fun addData(list: List<Items>) {
         users.addAll(list);
     }
 }

@@ -1,7 +1,8 @@
 package com.voomsway.github_app.data.repository
 
 import com.voomsway.github_app.data.api.ApiHelper
-import com.voomsway.github_app.data.model.GithubUser
+import com.voomsway.github_app.data.model.GithubUsers
+import com.voomsway.github_app.data.model.Items
 import io.reactivex.Flowable
 
 /**
@@ -9,7 +10,7 @@ import io.reactivex.Flowable
  */
 class MainRepository(private val apiHelper: ApiHelper) {
 
-    fun getGithubUser(): Flowable<List<GithubUser>> {
+    fun getGithubUser(): Flowable<GithubUsers> {
         return apiHelper.getGithubUsers();
     }
 }

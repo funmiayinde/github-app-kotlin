@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.voomsway.github_app.R
 import com.voomsway.github_app.data.api.ApiHelper
 import com.voomsway.github_app.data.api.ApiServiceImpl
-import com.voomsway.github_app.data.model.GithubUser
+import com.voomsway.github_app.data.model.Items
 import com.voomsway.github_app.ui.base.ViewModelFactory
 import com.voomsway.github_app.ui.main.adapter.MainAdapter
 import com.voomsway.github_app.ui.main.viewmodel.MainViewModel
@@ -24,11 +24,11 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainVewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: MainAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpUI()
         setUpViewModel()
@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAPICall() {
-        mainVewModel.getGithubUsers().observe(this, Observer {
+        mainViewModel.getGithubUsers().observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
                     progressBar.visibility = View.GONE;
-                    it.data?.let { users -> showList(users) }
+                    it.data?.let { items -> showList(items) }
                     recyclerView.visibility = View.VISIBLE
                 }
                 Status.LOADING -> {
@@ -65,16 +65,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        mainVewModel.fetchGithubUsers();
+        mainViewModel.fetchGithubUsers();
     }
 
-    private fun showList(users: List<GithubUser>) {
+    private fun showList(users: List<Items>) {
         adapter.addData(users)
         adapter.notifyDataSetChanged();
     }
 
     private fun setUpViewModel() {
-        mainVewModel = ViewModelProviders.of(
+        mainViewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(MainViewModel::class.java)
